@@ -34,11 +34,17 @@ export async function authenticate(request: Request) {
   const header = request.headers.get("authorization") ?? "";
   const token = header.startsWith("Bearer ") ? header.slice(7).trim() : "";
   if (!token || token.split(".").length !== 3) return null;
+  const url = process.env["SUPABASE_URL"];
+  const key = process.env["SUPABASE_PUBLISHABLE_KEY"];
+  if (!url || !key) return null;
+  const res = await fetch(`${url}/auth/v1/user`, {
+    headers: { apikey: key, Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) return null;
+  const user = (await res.json()) as { id: string; email?: string };
   const client = makeClient(token);
   if (!client) return null;
-  const { data, error } = await client.auth.getUser();
-  if (error || !data.user) return null;
-  return { client, userId: data.user.id };
+  return { client, token, userId: user.id, user };
 }
 
 export async function isAdmin(client: ReturnType<typeof makeClient>, userId: string) {
