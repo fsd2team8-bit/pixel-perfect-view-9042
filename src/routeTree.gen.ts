@@ -12,10 +12,18 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProgramsRouteImport } from './routes/programs'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as RegisterTrainingRouteImport } from './routes/registerTraining'
+import { Route as RegistrationsRouteImport } from './routes/registrations'
+import { Route as TrainingProgramsRouteImport } from './routes/trainingPrograms'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedMyTrainingsRouteImport } from './routes/_authenticated/my-trainings'
+import { Route as CancelRegistrationIdRouteImport } from './routes/cancelRegistration.$id'
+import { Route as RegistrationsIdRouteImport } from './routes/registrations.$id'
+import { Route as TrainingProgramsIdRouteImport } from './routes/trainingPrograms.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -31,9 +39,34 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProgramsRoute = ProgramsRouteImport.update({
   id: '/programs',
   path: '/programs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterTrainingRoute = RegisterTrainingRouteImport.update({
+  id: '/registerTraining',
+  path: '/registerTraining',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegistrationsRoute = RegistrationsRouteImport.update({
+  id: '/registrations',
+  path: '/registrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrainingProgramsRoute = TrainingProgramsRouteImport.update({
+  id: '/trainingPrograms',
+  path: '/trainingPrograms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -52,55 +85,135 @@ const AuthenticatedMyTrainingsRoute =
     path: '/my-trainings',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const CancelRegistrationIdRoute = CancelRegistrationIdRouteImport.update({
+  id: '/cancelRegistration/$id',
+  path: '/cancelRegistration/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegistrationsIdRoute = RegistrationsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => RegistrationsRoute,
+} as any)
+const TrainingProgramsIdRoute = TrainingProgramsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => TrainingProgramsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/login': typeof LoginRoute
   '/programs': typeof ProgramsRoute
+  '/register': typeof RegisterRoute
+  '/registerTraining': typeof RegisterTrainingRoute
+  '/registrations': typeof RegistrationsRouteWithChildren
+  '/trainingPrograms': typeof TrainingProgramsRouteWithChildren
   '/admin': typeof AuthenticatedAdminRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/my-trainings': typeof AuthenticatedMyTrainingsRoute
+  '/cancelRegistration/$id': typeof CancelRegistrationIdRoute
+  '/registrations/$id': typeof RegistrationsIdRoute
+  '/trainingPrograms/$id': typeof TrainingProgramsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/login': typeof LoginRoute
   '/programs': typeof ProgramsRoute
+  '/register': typeof RegisterRoute
+  '/registerTraining': typeof RegisterTrainingRoute
+  '/registrations': typeof RegistrationsRouteWithChildren
+  '/trainingPrograms': typeof TrainingProgramsRouteWithChildren
   '/admin': typeof AuthenticatedAdminRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/my-trainings': typeof AuthenticatedMyTrainingsRoute
+  '/cancelRegistration/$id': typeof CancelRegistrationIdRoute
+  '/registrations/$id': typeof RegistrationsIdRoute
+  '/trainingPrograms/$id': typeof TrainingProgramsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/login': typeof LoginRoute
   '/programs': typeof ProgramsRoute
+  '/register': typeof RegisterRoute
+  '/registerTraining': typeof RegisterTrainingRoute
+  '/registrations': typeof RegistrationsRouteWithChildren
+  '/trainingPrograms': typeof TrainingProgramsRouteWithChildren
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/my-trainings': typeof AuthenticatedMyTrainingsRoute
+  '/cancelRegistration/$id': typeof CancelRegistrationIdRoute
+  '/registrations/$id': typeof RegistrationsIdRoute
+  '/trainingPrograms/$id': typeof TrainingProgramsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/programs' | '/admin' | '/dashboard' | '/my-trainings'
+    | '/'
+    | '/auth'
+    | '/login'
+    | '/programs'
+    | '/register'
+    | '/registerTraining'
+    | '/registrations'
+    | '/trainingPrograms'
+    | '/admin'
+    | '/dashboard'
+    | '/my-trainings'
+    | '/cancelRegistration/$id'
+    | '/registrations/$id'
+    | '/trainingPrograms/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/programs' | '/admin' | '/dashboard' | '/my-trainings'
+  to:
+    | '/'
+    | '/auth'
+    | '/login'
+    | '/programs'
+    | '/register'
+    | '/registerTraining'
+    | '/registrations'
+    | '/trainingPrograms'
+    | '/admin'
+    | '/dashboard'
+    | '/my-trainings'
+    | '/cancelRegistration/$id'
+    | '/registrations/$id'
+    | '/trainingPrograms/$id'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/login'
     | '/programs'
+    | '/register'
+    | '/registerTraining'
+    | '/registrations'
+    | '/trainingPrograms'
     | '/_authenticated/admin'
     | '/_authenticated/dashboard'
     | '/_authenticated/my-trainings'
+    | '/cancelRegistration/$id'
+    | '/registrations/$id'
+    | '/trainingPrograms/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  LoginRoute: typeof LoginRoute
   ProgramsRoute: typeof ProgramsRoute
+  RegisterRoute: typeof RegisterRoute
+  RegisterTrainingRoute: typeof RegisterTrainingRoute
+  RegistrationsRoute: typeof RegistrationsRouteWithChildren
+  TrainingProgramsRoute: typeof TrainingProgramsRouteWithChildren
+  CancelRegistrationIdRoute: typeof CancelRegistrationIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -126,11 +239,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/programs': {
       id: '/programs'
       path: '/programs'
       fullPath: '/programs'
       preLoaderRoute: typeof ProgramsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/registerTraining': {
+      id: '/registerTraining'
+      path: '/registerTraining'
+      fullPath: '/registerTraining'
+      preLoaderRoute: typeof RegisterTrainingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/registrations': {
+      id: '/registrations'
+      path: '/registrations'
+      fullPath: '/registrations'
+      preLoaderRoute: typeof RegistrationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trainingPrograms': {
+      id: '/trainingPrograms'
+      path: '/trainingPrograms'
+      fullPath: '/trainingPrograms'
+      preLoaderRoute: typeof TrainingProgramsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -154,6 +302,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMyTrainingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/cancelRegistration/$id': {
+      id: '/cancelRegistration/$id'
+      path: '/cancelRegistration/$id'
+      fullPath: '/cancelRegistration/$id'
+      preLoaderRoute: typeof CancelRegistrationIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/registrations/$id': {
+      id: '/registrations/$id'
+      path: '/$id'
+      fullPath: '/registrations/$id'
+      preLoaderRoute: typeof RegistrationsIdRouteImport
+      parentRoute: typeof RegistrationsRoute
+    }
+    '/trainingPrograms/$id': {
+      id: '/trainingPrograms/$id'
+      path: '/$id'
+      fullPath: '/trainingPrograms/$id'
+      preLoaderRoute: typeof TrainingProgramsIdRouteImport
+      parentRoute: typeof TrainingProgramsRoute
+    }
   }
 }
 
@@ -172,11 +341,40 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface RegistrationsRouteChildren {
+  RegistrationsIdRoute: typeof RegistrationsIdRoute
+}
+
+const RegistrationsRouteChildren: RegistrationsRouteChildren = {
+  RegistrationsIdRoute: RegistrationsIdRoute,
+}
+
+const RegistrationsRouteWithChildren = RegistrationsRoute._addFileChildren(
+  RegistrationsRouteChildren,
+)
+
+interface TrainingProgramsRouteChildren {
+  TrainingProgramsIdRoute: typeof TrainingProgramsIdRoute
+}
+
+const TrainingProgramsRouteChildren: TrainingProgramsRouteChildren = {
+  TrainingProgramsIdRoute: TrainingProgramsIdRoute,
+}
+
+const TrainingProgramsRouteWithChildren =
+  TrainingProgramsRoute._addFileChildren(TrainingProgramsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  LoginRoute: LoginRoute,
   ProgramsRoute: ProgramsRoute,
+  RegisterRoute: RegisterRoute,
+  RegisterTrainingRoute: RegisterTrainingRoute,
+  RegistrationsRoute: RegistrationsRouteWithChildren,
+  TrainingProgramsRoute: TrainingProgramsRouteWithChildren,
+  CancelRegistrationIdRoute: CancelRegistrationIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
